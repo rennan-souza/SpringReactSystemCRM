@@ -1,7 +1,8 @@
 import { useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../AuthContext";
-import { getTokenData, isAuthenticated } from "../../utils/requests";
+import { getTokenData, hasAnyRoles, isAuthenticated } from "../../utils/requests";
+import { sidebarExpand } from "../../utils/sidebar";
 
 
 const Sidebar = () => {
@@ -25,7 +26,7 @@ const Sidebar = () => {
     <>
       {authContextData.autheticated ? (
         <>
-          <div className="sidebar-background-close" id="sbc"    ></div>
+          <div className="sidebar-background-close" id="sidebarContainerClose"  onClick={sidebarExpand}></div>
           <div className="sidebar shadow-sm" id="sidebar">
             <div className="sidebar-links-container">
 
@@ -38,24 +39,29 @@ const Sidebar = () => {
                 </div>
               </NavLink>
 
-              <NavLink to="/usuarios" activeClassName="sidebar-link-active">
-                <div className="sidebar-link-icon">
-                  <i className="fas fa-users-cog"></i>
-                </div>
-                <div className="sidebar-link-text">
-                  Usuários
-                </div>
-              </NavLink>
+              {hasAnyRoles(['ROLE_ADMIN']) && (
+                <NavLink to="/usuarios" activeClassName="sidebar-link-active">
+                  <div className="sidebar-link-icon">
+                    <i className="fas fa-users-cog"></i>
+                  </div>
+                  <div className="sidebar-link-text">
+                    Usuários
+                  </div>
+                </NavLink>
+              )}
 
-              <NavLink to="/clientes" activeClassName="sidebar-link-active">
-                <div className="sidebar-link-icon">
-                  <i className="fas fa-handshake"></i>
-                </div>
-                <div className="sidebar-link-text">
-                  Clientes
-                </div>
-              </NavLink>
+              {hasAnyRoles(['ROLE_OPERATOR']) && (
+                <NavLink to="/clientes" activeClassName="sidebar-link-active">
+                  <div className="sidebar-link-icon">
+                    <i className="fas fa-handshake"></i>
+                  </div>
+                  <div className="sidebar-link-text">
+                    Clientes
+                  </div>
+                </NavLink>
+              )}
 
+              {/** 
               <a href="#link">
                 <div className="sidebar-link-icon">
                   <i className="fas fa-th-large"></i>
@@ -64,15 +70,16 @@ const Sidebar = () => {
                   Produtos
                 </div>
               </a>
+              */}
 
-              <a href="#link">
+              <NavLink to="/perfil" activeClassName="sidebar-link-active">
                 <div className="sidebar-link-icon">
                   <i className="fas fa-user-cog"></i>
                 </div>
                 <div className="sidebar-link-text">
                   Meus dados
                 </div>
-              </a>
+              </NavLink>
             </div>
           </div>
         </>

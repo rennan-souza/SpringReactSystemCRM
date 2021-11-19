@@ -20,7 +20,7 @@ ul {
 
 .form-control:focus {
   box-shadow: none;
-  border: 1px solid #ccc;
+  border: 1px solid #007bff;
 }
 
 .input-invalid {
@@ -42,8 +42,8 @@ ul {
   box-shadow: none !important;
 }
 
-.form-card-base {
-  padding: 25px 50px 25px 50px;
+.card {
+  margin-bottom: 20px;
 }
 
 .header {
@@ -202,7 +202,7 @@ ul {
     display: unset;
   }
 
-  .sbc {
+  .sidebar-contaianer-close-expand {
     display: unset;
   }
 

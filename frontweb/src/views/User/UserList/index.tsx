@@ -1,5 +1,6 @@
 import { AxiosRequestConfig } from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import Pagination from "../../../components/Pagination";
@@ -7,6 +8,14 @@ import { SpringPage, User } from "../../../types";
 import { formatRole } from "../../../utils/formatter";
 import { getTokenData, requestBackend } from "../../../utils/requests";
 
+type SearchForm = {
+  value: string;
+}
+
+type ControlComponentsData = {
+  activePage: number;
+  filterData: string;
+};
 
 const UserList = () => {
 
@@ -14,15 +23,34 @@ const UserList = () => {
   const [userIdSelected, setUserIdSelected] = useState<number>();
   const [load, setLoad] = useState<boolean>(false);
 
-  const getAllUsers = (pageNumber: number) => {
+  const handlePageChange = (pageNumber: number) => {
+    setControlComponentsData({ activePage: pageNumber, filterData: controlComponentsData.filterData });
+  };
+
+  const [controlComponentsData, setControlComponentsData] = useState<ControlComponentsData>({
+    activePage: 0,
+    filterData: ''
+  });
+  
+  const onSubmit = (searchForm: SearchForm) => {
+    setControlComponentsData({ activePage: 0, filterData: searchForm.value })
+  }
+  
+  const {
+    register,
+    handleSubmit,
+  } = useForm<SearchForm>();
+
+  const getAllUsers = useCallback(() => {
     setLoad(true);
     const params: AxiosRequestConfig = {
       method: "GET",
       url: "/users",
       params: {
-        page: pageNumber,
+        page: controlComponentsData.activePage,
         size: 5,
-        sort: 'id,desc',
+        sort: "id,desc",
+        search: controlComponentsData.filterData
       },
       withCredentials: true
     };
@@ -32,11 +60,11 @@ const UserList = () => {
     }).finally(() => {
       setLoad(false);
     });
-  }
+  }, [controlComponentsData])
 
   useEffect(() => {
-    getAllUsers(0)
-  }, []);
+    getAllUsers()
+  }, [getAllUsers]);
 
   const handlePrepareDeleteUser = (userId: number) => {
     setUserIdSelected(userId);
@@ -48,7 +76,7 @@ const UserList = () => {
       url: `/users/${userIdSelected}`,
       withCredentials: true
     }).then(() => {
-      getAllUsers(page?.number ? page.number : 0);
+      getAllUsers();
       toast.success("Usuário excluído com sucesso", {
         position: "bottom-right",
         theme: "colored"
@@ -74,8 +102,14 @@ const UserList = () => {
         </NavLink>
       </div>
       <div className="search-container mb-2">
-        <form>
-          <input type="text" className="form-control form-control-sm input-search" placeholder="Pesquisar" />
+        <form onChange={handleSubmit(onSubmit)}>
+          <input
+            {...register("value")}
+            type="text"
+            name="value"
+            className="form-control form-control-sm input-search"
+            placeholder="Pesqusiar"
+          />
         </form>
       </div>
 
@@ -93,48 +127,50 @@ const UserList = () => {
       ) : (
 
         <div className="card">
-          <div className="table-responsive">
-            <table className="table table-borderless table-hover mb-0">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Nome</th>
-                  <th>Sobrenome</th>
-                  <th>Email</th>
-                  <th>Perfis</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                {page?.content.map((user) => (
-                  <tr key={user.id} className="border-bottom">
-                    <td>{user.id}</td>
-                    <td>{user.firstName}</td>
-                    <td>{user.lastName}</td>
-                    <td>{user.email}</td>
-                    <td>
-                      {user.roles.map((role) => (
-                        <span className="badge border border-primary mr-1" key={role.id}>{formatRole(role.authority)}</span>
-                      ))}
-                    </td>
-                    <td>
-                      {user.email !== getTokenData()?.user_name ? (
-                        <>
-                          <NavLink to={`/usuarios/editar/${user.id}`} className="btn btn-sm p-0 mr-3 shadow-none text-info">
-                            <i className="fas fa-pen"></i>
-                          </NavLink>
-                          <button className="btn btn-sm p-0 shadow-none text-danger"
-                            data-toggle="modal" data-target="#exampleModal"
-                            onClick={() => { handlePrepareDeleteUser(user.id) }}>
-                            <i className="fas fa-trash-alt"></i>
-                          </button>
-                        </>
-                      ) : ''}
-                    </td>
+          <div className="card-body">
+            <div className="table-responsive">
+              <table className="table table-borderless table-hover mb-0">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Sobrenome</th>
+                    <th>Email</th>
+                    <th>Perfis</th>
+                    <th>Ações</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {page?.content.map((user) => (
+                    <tr key={user.id}>
+                      <td>{user.id}</td>
+                      <td>{user.firstName}</td>
+                      <td>{user.lastName}</td>
+                      <td>{user.email}</td>
+                      <td>
+                        {user.roles.map((role) => (
+                          <span className="badge border border-primary mr-1" key={role.id}>{formatRole(role.authority)}</span>
+                        ))}
+                      </td>
+                      <td>
+                        {user.email !== getTokenData()?.user_name ? (
+                          <>
+                            <NavLink to={`/usuarios/editar/${user.id}`} className="btn btn-sm p-0 mr-3 shadow-none text-info">
+                              <i className="fas fa-pen"></i>
+                            </NavLink>
+                            <button className="btn btn-sm p-0 shadow-none text-danger"
+                              data-toggle="modal" data-target="#exampleModal"
+                              onClick={() => { handlePrepareDeleteUser(user.id) }}>
+                              <i className="fas fa-trash-alt"></i>
+                            </button>
+                          </>
+                        ) : ''}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 
@@ -142,9 +178,10 @@ const UserList = () => {
 
       <div className="pagination-container">
         <Pagination
+          forcePage={page?.number}
           pageCount={page ? page.totalPages : 0}
           range={3}
-          onChange={getAllUsers}
+          onChange={handlePageChange}
         />
       </div>
 

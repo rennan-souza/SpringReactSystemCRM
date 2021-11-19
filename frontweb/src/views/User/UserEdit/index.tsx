@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Link, useHistory, useParams } from "react-router-dom";
 import Select from 'react-select';
@@ -17,6 +17,7 @@ const UserEdit = () => {
   const history = useHistory();
   const { userId } = useParams<UrlParams>();
   const [roles, setRoles] = useState<Roles[]>();
+  const [loading, setLoading] = useState<boolean>(false);
 
 
   const {
@@ -38,7 +39,7 @@ const UserEdit = () => {
     });
   }
 
-  const getUser = () => {
+  const getUser = useCallback(() => {
     const params: AxiosRequestConfig = {
       method: "GET",
       url: `/users/${userId}`,
@@ -51,14 +52,15 @@ const UserEdit = () => {
       setValue('email', user.email)
       setValue('roles', user.roles)
     });
-  }
+  }, [setValue, userId])
 
   useEffect(() => {
     getAllRoles();
     getUser();
-  }, [setValue])
+  }, [getUser])
 
   const onSubmit = (user: User) => {
+    setLoading(true)
     requestBackend({
       method: 'PUT',
       url: `/users/${userId}`,
@@ -71,6 +73,7 @@ const UserEdit = () => {
       });
       history.push('/usuarios');
     }).catch((errorResponse) => {
+      setLoading(false)
       toast.error(errorResponse.response.data.message, {
         position: "bottom-right",
         theme: "colored",
@@ -89,11 +92,10 @@ const UserEdit = () => {
           VOLTAR
         </Link>
       </div>
-      <div className="card form-card-base">
-
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="row">
-            <div className="form-group col-md-6">
+      <div className="card">
+        <div className="card-body">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="form-group">
               <label>Nome:</label>
               <input
                 {...register("firstName", {
@@ -106,7 +108,7 @@ const UserEdit = () => {
               <small className="text-danger">{errors.firstName?.message}</small>
             </div>
 
-            <div className="form-group col-md-6">
+            <div className="form-group">
               <label>Sobrenome:</label>
               <input
                 {...register("lastName", {
@@ -119,7 +121,7 @@ const UserEdit = () => {
               <small className="text-danger">{errors.lastName?.message}</small>
             </div>
 
-            <div className="form-group col-md-6">
+            <div className="form-group">
               <label>Email:</label>
               <input
                 {...register("email", {
@@ -136,7 +138,7 @@ const UserEdit = () => {
               <small className="text-danger">{errors.email?.message}</small>
             </div>
 
-            <div className="form-group col-md-6">
+            <div className="form-group">
               <label htmlFor="roles">Selecione os perfis do usuário:</label>
               <Controller
                 name="roles"
@@ -161,20 +163,20 @@ const UserEdit = () => {
                 </div>
               )}
             </div>
-          </div>
 
-
-          <div className="row">
-            <div className="form-group col-md-12">
-              <button className="btn btn-success shadow-none mr-1">
+            {loading ? (
+              <button className="btn btn-success shadow-none" type="button" disabled>
+                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                CARREGANDO...
+              </button>
+            ) : (
+              <button className="btn btn-success shadow-none">
                 <i className="fas fa-save mr-2"></i>
                 SALVAR
               </button>
-            </div>
-          </div>
-
-        </form>
-
+            )}
+          </form>
+        </div>
       </div>
     </>
   )

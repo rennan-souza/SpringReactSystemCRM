@@ -48,8 +48,14 @@ public class UserService implements UserDetailsService {
 	MailService mailService;
 
 	@Transactional(readOnly = true)
-	public Page<UserDTO> findAllPaged(Pageable pageable) {
-		Page<User> list = userRepository.findAll(pageable);
+	public Page<UserDTO> findAllPaged(Pageable pageable, String search) {
+		
+		if (search == null) {
+			Page<User> list = userRepository.findAll(pageable);
+			return list.map(x -> new UserDTO(x));
+		}
+		
+		Page<User> list = userRepository.searchUser(pageable, search);
 		return list.map(x -> new UserDTO(x));
 	}
 
