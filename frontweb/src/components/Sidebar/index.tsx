@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../AuthContext";
 import { getTokenData, hasAnyRoles, isAuthenticated } from "../../utils/requests";
 import { sidebarExpand } from "../../utils/sidebar";
@@ -26,25 +26,32 @@ const Sidebar = () => {
     <>
       {authContextData.autheticated ? (
         <>
-          <div className="sidebar-background-close" id="sidebarContainerClose"  onClick={sidebarExpand}></div>
-          <div className="sidebar shadow-sm" id="sidebar">
-            <div className="sidebar-links-container">
+          <div className="sidebar-bg-close" id="sbgc"  onClick={sidebarExpand}></div>
+          <div className="sidebar shadow" id="sidebar">
+
+            <div className="sidebar-logo-container">
+              <Link to="/dashboard">
+                System CRM
+              </Link>
+            </div>
+
+            <div className="sidebar-link-container">
 
               <NavLink to="/dashboard" activeClassName="sidebar-link-active">
-                <div className="sidebar-link-icon">
+                <div className="sidebar-nav-icon ">
                   <i className="fas fa-tachometer-alt"></i>
                 </div>
-                <div className="sidebar-link-text">
+                <div className="sidebar-nav-textlink">
                   Dashboard
                 </div>
               </NavLink>
 
               {hasAnyRoles(['ROLE_ADMIN']) && (
                 <NavLink to="/usuarios" activeClassName="sidebar-link-active">
-                  <div className="sidebar-link-icon">
+                  <div className="sidebar-nav-icon ">
                     <i className="fas fa-users-cog"></i>
                   </div>
-                  <div className="sidebar-link-text">
+                  <div className="sidebar-nav-textlink">
                     Usuários
                   </div>
                 </NavLink>
@@ -52,31 +59,31 @@ const Sidebar = () => {
 
               {hasAnyRoles(['ROLE_OPERATOR']) && (
                 <NavLink to="/clientes" activeClassName="sidebar-link-active">
-                  <div className="sidebar-link-icon">
+                  <div className="sidebar-nav-icon ">
                     <i className="fas fa-handshake"></i>
                   </div>
-                  <div className="sidebar-link-text">
+                  <div className="sidebar-nav-textlink">
                     Clientes
                   </div>
                 </NavLink>
               )}
 
-              {/** 
-              <a href="#link">
-                <div className="sidebar-link-icon">
+              
+              <NavLink to="/produtos" activeClassName="sidebar-link-active">
+                <div className="sidebar-nav-icon ">
                   <i className="fas fa-th-large"></i>
                 </div>
-                <div className="sidebar-link-text">
+                <div className="sidebar-nav-textlink">
                   Produtos
                 </div>
-              </a>
-              */}
+              </NavLink>
+              
 
               <NavLink to="/perfil" activeClassName="sidebar-link-active">
-                <div className="sidebar-link-icon">
+                <div className="sidebar-nav-icon ">
                   <i className="fas fa-user-cog"></i>
                 </div>
-                <div className="sidebar-link-text">
+                <div className="sidebar-nav-textlink">
                   Meus dados
                 </div>
               </NavLink>

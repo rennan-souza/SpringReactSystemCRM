@@ -73,7 +73,7 @@ const ChangePassword = () => {
                   },
                 })}
                 type="password"
-                className={`form-control ${errors.newPassword ? "is-invalid" : ""}`}
+                className={`form-control ${errors.newPassword ? "input-invalid" : ""}`}
 
                 name="newPassword"
               />
@@ -92,7 +92,7 @@ const ChangePassword = () => {
                     "A confirmação da senha não coincide",
                 })}
                 type="password"
-                className={`form-control ${errors.new_password_confirmation ? "is-invalid" : ""}`}
+                className={`form-control ${errors.new_password_confirmation ? "input-invalid" : ""}`}
                 name="new_password_confirmation"
               />
               <small className="text-danger">

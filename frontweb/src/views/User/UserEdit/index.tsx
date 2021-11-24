@@ -8,6 +8,7 @@ import { Roles, User } from "../../../types";
 import { formatRole } from "../../../utils/formatter";
 import { requestBackend } from "../../../utils/requests";
 
+
 type UrlParams = {
   userId: string;
 };
@@ -19,16 +20,15 @@ const UserEdit = () => {
   const [roles, setRoles] = useState<Roles[]>();
   const [loading, setLoading] = useState<boolean>(false);
 
-
   const {
     register,
     handleSubmit,
     formState: { errors },
-    control,
     setValue,
+    control,
   } = useForm<User>();
 
-  const getAllRoles = () => {
+  const getAllRoles = useCallback(() => {
     const params: AxiosRequestConfig = {
       method: "GET",
       url: "/roles",
@@ -37,7 +37,7 @@ const UserEdit = () => {
     requestBackend(params).then((response) => {
       setRoles(response.data);
     });
-  }
+  }, [])
 
   const getUser = useCallback(() => {
     const params: AxiosRequestConfig = {
@@ -52,12 +52,12 @@ const UserEdit = () => {
       setValue('email', user.email)
       setValue('roles', user.roles)
     });
-  }, [setValue, userId])
+  }, [userId, setValue])
 
   useEffect(() => {
     getAllRoles();
     getUser();
-  }, [getUser])
+  }, [getUser, getAllRoles])
 
   const onSubmit = (user: User) => {
     setLoading(true)
@@ -96,7 +96,7 @@ const UserEdit = () => {
         <div className="card-body">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
-              <label>Nome:</label>
+              <label>Nome: <span className="text-danger">*</span></label>
               <input
                 {...register("firstName", {
                   required: "Campo obrigatório",
@@ -109,7 +109,7 @@ const UserEdit = () => {
             </div>
 
             <div className="form-group">
-              <label>Sobrenome:</label>
+              <label>Sobrenome: <span className="text-danger">*</span></label>
               <input
                 {...register("lastName", {
                   required: "Campo obrigatório",
@@ -122,7 +122,7 @@ const UserEdit = () => {
             </div>
 
             <div className="form-group">
-              <label>Email:</label>
+              <label>Email: <span className="text-danger">*</span></label>
               <input
                 {...register("email", {
                   required: "Campo obrigatório",
@@ -139,7 +139,7 @@ const UserEdit = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="roles">Selecione os perfis do usuário:</label>
+              <label>Selecione os perfis do usuário: <span className="text-danger">*</span></label>
               <Controller
                 name="roles"
                 rules={{ required: true }}
@@ -153,7 +153,6 @@ const UserEdit = () => {
                     isMulti
                     getOptionLabel={(role: Roles) => String(formatRole(role.authority))}
                     getOptionValue={(role: Roles) => String(role.id)}
-                    inputId="roles"
                   />
                 )}
               />

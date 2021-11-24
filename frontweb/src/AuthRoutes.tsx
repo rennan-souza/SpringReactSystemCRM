@@ -6,6 +6,9 @@ import CustomerEdit from "./views/Customer/CustomerEdit";
 import CustomerList from "./views/Customer/CustomerList";
 import CustomerRegister from "./views/Customer/CustomerRegister";
 import Dashboard from "./views/Dashboard";
+import ProductEdit from "./views/Product/ProductEdit";
+import ProductList from "./views/Product/ProductList";
+import ProductRegister from "./views/Product/ProductRegister";
 import ChangePassword from "./views/Profile/ChangePassword";
 import ProfileData from "./views/Profile/ProfileData/idnex";
 import UserEdit from "./views/User/UserEdit";
@@ -49,11 +52,21 @@ const AuthRoutes = () => {
             <CustomerEdit />
           </PrivateRoute>
 
+          <Redirect from="/produtos" to="/produtos/lista" exact />
+          <PrivateRoute path="/produtos/lista">
+            <ProductList />
+          </PrivateRoute>
+          <PrivateRoute path="/produtos/cadastrar">
+            <ProductRegister />
+          </PrivateRoute>
+          <PrivateRoute path="/produtos/editar/:productId">
+            <ProductEdit />
+          </PrivateRoute>
+
           <Redirect from="/perfil" to="/perfil/dados" exact />
           <PrivateRoute path="/perfil/dados">
             <ProfileData />
           </PrivateRoute>
-
           <PrivateRoute path="/perfil/mudar-senha">
             <ChangePassword />
           </PrivateRoute>

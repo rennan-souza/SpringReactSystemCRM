@@ -26,3 +26,11 @@ INSERT INTO tb_customer (first_name, last_name, email, birth_date, cpf) VALUES (
 
 INSERT INTO tb_customer (first_name, last_name, email, birth_date, cpf) VALUES ('Lucy', 'James Pereira', 'lucyjames@email.com.br', '1990-03-18', '295.330.650-10');
 INSERT INTO tb_customer (first_name, last_name, email, birth_date, cpf) VALUES ('Elizabeth', 'Silva Green', 'elizabethsg@email.com.br', '1999-01-05', '771.979.500-82');
+
+
+
+
+INSERT INTO tb_category (name) VALUES ('Livros');
+INSERT INTO tb_category (name) VALUES ('Eletrônicos');
+INSERT INTO tb_category (name) VALUES ('Computadores');
+INSERT INTO tb_category (name) VALUES ('Celulares');

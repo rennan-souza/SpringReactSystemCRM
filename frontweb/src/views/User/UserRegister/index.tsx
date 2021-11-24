@@ -76,7 +76,7 @@ const UserRegister = () => {
         <div className="card-body">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
-              <label>Nome:</label>
+              <label>Nome: <span className="text-danger">*</span></label>
               <input
                 {...register("firstName", {
                   required: "Campo obrigatório",
@@ -89,7 +89,7 @@ const UserRegister = () => {
             </div>
 
             <div className="form-group">
-              <label>Sobrenome:</label>
+              <label>Sobrenome: <span className="text-danger">*</span></label>
               <input
                 {...register("lastName", {
                   required: "Campo obrigatório",
@@ -102,7 +102,7 @@ const UserRegister = () => {
             </div>
 
             <div className="form-group">
-              <label>Email:</label>
+              <label>Email: <span className="text-danger">*</span></label>
               <input
                 {...register("email", {
                   required: "Campo obrigatório",
@@ -119,7 +119,7 @@ const UserRegister = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="roles">Selecione os perfis do usuário:</label>
+              <label htmlFor="roles">Selecione os perfis do usuário: <span className="text-danger">*</span></label>
               <Controller
                 name="roles"
                 rules={{ required: true }}

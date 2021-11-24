@@ -55,59 +55,59 @@ const CustomerRegister = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
 
             <div className="form-group">
-              <label>Nome:</label>
+              <label>Nome: <span className="text-danger">*</span></label>
               <input
                 {...register("firstName", {
                   required: "Campo obrigatório",
                 })}
                 type="text"
-                className={`form-control ${errors.firstName ? "is-invalid" : ""}`}
+                className={`form-control ${errors.firstName ? "input-invalid" : ""}`}
                 name="firstName"
               />
               <small className="text-danger">{errors.firstName?.message}</small>
             </div>
 
             <div className="form-group">
-              <label>Sobrenome:</label>
+              <label>Sobrenome: <span className="text-danger">*</span></label>
               <input
                 {...register("lastName", {
                   required: "Campo obrigatório",
                 })}
                 type="text"
-                className={`form-control ${errors.lastName ? "is-invalid" : ""}`}
+                className={`form-control ${errors.lastName ? "input-invalid" : ""}`}
                 name="lastName"
               />
               <small className="text-danger">{errors.lastName?.message}</small>
             </div>
 
             <div className="form-group">
-              <label>CPF:</label>
+              <label>CPF: <span className="text-danger">*</span></label>
               <input
                 {...register("cpf", {
                   required: "Campo obrigatório",
                 })}
                 type="text"
-                className={`form-control ${errors.cpf ? "is-invalid" : ""}`}
+                className={`form-control ${errors.cpf ? "input-invalid" : ""}`}
                 name="cpf"
               />
               <small className="text-danger">{errors.cpf?.message}</small>
             </div>
 
             <div className="form-group">
-              <label>Data de nascimento:</label>
+              <label>Data de nascimento: <span className="text-danger">*</span></label>
               <input
                 {...register("birthDate", {
                   required: "Campo obrigatório",
                 })}
                 type="date"
-                className={`form-control ${errors.birthDate ? "is-invalid" : ""}`}
+                className={`form-control ${errors.birthDate ? "input-invalid" : ""}`}
                 name="birthDate"
               />
               <small className="text-danger">{errors.birthDate?.message}</small>
             </div>
 
             <div className="form-group">
-              <label>Email:</label>
+              <label>Email: <span className="text-danger">*</span></label>
               <input
                 {...register("email", {
                   required: "Campo obrigatório",
@@ -117,7 +117,7 @@ const CustomerRegister = () => {
                   },
                 })}
                 type="text"
-                className={`form-control ${errors.email ? "is-invalid" : ""}`}
+                className={`form-control ${errors.email ? "input-invalid" : ""}`}
                 name="email"
               />
               <small className="text-danger">{errors.email?.message}</small>

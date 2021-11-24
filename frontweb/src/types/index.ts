@@ -1,3 +1,4 @@
+
 export type Role = "ROLE_OPERATOR" | "ROLE_ADMIN";
 
 export type Roles = {
@@ -59,3 +60,26 @@ export type Customer = {
   birthDate: Date;
   email: string;
 };
+
+export type ProductCategory = {
+  id: number;
+  name: string;
+}
+
+export type Product = {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  file: any;
+  category: ProductCategory;
+}
+
+export type ProductResponse = {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  imgBase64: any;
+  category: ProductCategory;
+}

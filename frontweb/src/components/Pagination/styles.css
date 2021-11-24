@@ -1,5 +1,8 @@
 .pagination-container {
+  width: 100%;
+  height: 50px;
   display: flex;
+  align-items: center;
   justify-content: center;
 }
 
@@ -17,16 +20,16 @@
 }
 
 .pagination-item:hover {
-  background: #ffc107;
-  border: 1px solid #ffc107;
+  background: #007bff;
+  border: 1px solid #007bff;
   color: #fff;
   text-decoration: none;
 }
 
 .pagination-link-active {
-  background: #ffc107;
+  background: #007bff;
   color: #fff;
-  border: 1px solid #ffc107;
+  border: 1px solid #007bff;
 }
 
 .pagination-break-item {

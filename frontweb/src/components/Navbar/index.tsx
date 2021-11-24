@@ -1,6 +1,5 @@
 import { useContext, useEffect } from "react";
 import { useHistory } from "react-router";
-import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../AuthContext";
 import { getAuthData, getTokenData, isAuthenticated, removeAuthData } from "../../utils/requests";
 import { sidebarExpand } from "../../utils/sidebar";
@@ -36,15 +35,10 @@ const Navbar = () => {
   return (
     <>
       {authContextData.autheticated ? (
-        <div className="header">
-          <div className="header-logo-container">
-            <NavLink to="/dashboard">
-              <strong>System CRM</strong>
-            </NavLink>
-          </div>
-          <div className="header-btn-menu-expand-container">
-            <i className="fas fa-bars" onClick={sidebarExpand}></i>
-          </div>
+        <div className="header border-bottom" id="header">
+     
+          <i className="fas fa-bars btn-sidebar-expand" onClick={sidebarExpand}></i>
+         
           <div className="dropdown ml-auto">
             <button className="btn btn-sm p-0 text-dark shadow-none dropdown-toggle" type="button" id="dropdownMenuButton"
               data-toggle="dropdown" aria-expanded="false">
