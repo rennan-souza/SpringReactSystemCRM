@@ -10,7 +10,7 @@ import ProductEdit from "./views/Product/ProductEdit";
 import ProductList from "./views/Product/ProductList";
 import ProductRegister from "./views/Product/ProductRegister";
 import ChangePassword from "./views/Profile/ChangePassword";
-import ProfileData from "./views/Profile/ProfileData/idnex";
+import ProfileData from "./views/Profile/ProfileData";
 import UserEdit from "./views/User/UserEdit";
 import UserList from "./views/User/UserList";
 import UserRegister from "./views/User/UserRegister";

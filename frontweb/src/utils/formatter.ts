@@ -8,3 +8,7 @@ export const formatRole = (role: string) => {
   }
   return textByRole[role as Role];
 }
+
+export const formatDate = (date: Date | string) => {
+  return new Date(date).toLocaleDateString();
+};

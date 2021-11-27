@@ -1,9 +1,11 @@
 package renan.springcrm.services;
 
+import java.time.Instant;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -18,12 +20,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import renan.springcrm.dtos.RoleDTO;
 import renan.springcrm.dtos.UserDTO;
+import renan.springcrm.dtos.UserResetPasswordDTO;
 import renan.springcrm.entities.Role;
 import renan.springcrm.entities.User;
+import renan.springcrm.entities.UserPasswordRecoveryCode;
 import renan.springcrm.repositories.RoleRepository;
+import renan.springcrm.repositories.UserPasswordRecoveryCodeRepository;
 import renan.springcrm.repositories.UserRepository;
 import renan.springcrm.services.exceptions.ActionNotAllowedException;
 import renan.springcrm.services.exceptions.DatabaseException;
+import renan.springcrm.services.exceptions.ResourceBadRequestException;
 import renan.springcrm.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -42,10 +48,10 @@ public class UserService implements UserDetailsService {
 	private RoleRepository roleRepository;
 
 	@Autowired
-	private RandomHashGeneratorService randomHashGeneratorService;
-
+	private MailService mailService;
+	
 	@Autowired
-	MailService mailService;
+	private UserPasswordRecoveryCodeRepository userPasswordRecoveryCodeRepository;
 
 	@Transactional(readOnly = true)
 	public Page<UserDTO> findAllPaged(Pageable pageable, String search) {
@@ -68,7 +74,7 @@ public class UserService implements UserDetailsService {
 			throw new DatabaseException("Email já cadastrado");
 		}
 
-		String password = randomHashGeneratorService.newHash(10);
+		String password = RandomStringUtils.randomAlphanumeric(10);
 		String passwordHash = passwordEncoder.encode(password);
 
 		User entity = new User();
@@ -147,6 +153,49 @@ public class UserService implements UserDetailsService {
 			throw new DatabaseException("Integrity violation");
 		}
 	}
+	
+	@Transactional(readOnly = false)
+	public String recoveryPassword(String email) {
+		
+		String response = "Se o email informado estiver correto, em poucos minutos você receberá o código para criar a nova senha";
+		
+		User user = userRepository.findByEmail(email);
+		
+		if (user == null) {
+			return response;
+		}
+		
+		String code = RandomStringUtils.randomNumeric(10);
+		
+		UserPasswordRecoveryCode userPasswordRecoveryCode = new UserPasswordRecoveryCode();
+		userPasswordRecoveryCode.setUserId(user.getId());
+		userPasswordRecoveryCode.setCode(code);
+		userPasswordRecoveryCodeRepository.save(userPasswordRecoveryCode);
+		
+		mailService.sendRecoverPassword(user.getFirstName(), user.getLastName(), user.getEmail(), code);
+		
+		return response;
+	}
+	
+	@Transactional(readOnly = false)
+	public void resetPassword(UserResetPasswordDTO dto) {
+		UserPasswordRecoveryCode codeExists = userPasswordRecoveryCodeRepository.findByCode(dto.getCode());
+		
+		if (codeExists == null) {
+			throw new ResourceBadRequestException("Código não encontrado");
+		}
+		
+		if (codeExists.getExpiresAt().isBefore(Instant.now())) {
+			throw new ResourceBadRequestException("Código expirado");
+		}
+		
+		User entity = userRepository.getOne(codeExists.getUserId());
+		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
+		entity = userRepository.save(entity);
+		
+		userPasswordRecoveryCodeRepository.deleteByCode(dto.getCode());
+	}
+
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

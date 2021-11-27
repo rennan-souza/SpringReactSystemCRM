@@ -31,7 +31,7 @@ public class CustomerServiceIT {
 	void setUp() throws Exception {
 		existingId = 1L;
 		nonExistingId = 1000L;
-		countTotalCustomers = 12L;
+		countTotalCustomers = 23L;
 	}
 
 	@Test

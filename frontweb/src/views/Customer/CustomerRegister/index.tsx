@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { Customer } from "../../../types";
 import { requestBackend } from "../../../utils/requests";
 
-
 const CustomerRegister = () => {
 
   const history = useHistory();

@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import Pagination from "../../../components/Pagination";
 import { Customer, SpringPage } from "../../../types";
+import { formatDate } from "../../../utils/formatter";
 import { requestBackend } from "../../../utils/requests";
 
 
@@ -143,7 +144,7 @@ const CustomerList = () => {
                       <td>{customer.firstName}</td>
                       <td>{customer.lastName}</td>
                       <td>{customer.cpf}</td>
-                      <td>{customer.birthDate}</td>
+                      <td>{formatDate(customer.birthDate)}</td>
                       <td>{customer.email}</td>
                       <td>
                         <NavLink to={`/clientes/editar/${customer.id}`} className="btn btn-sm p-0 shadow-none text-info mr-4">
@@ -169,7 +170,7 @@ const CustomerList = () => {
         <Pagination
           forcePage={page?.number}
           pageCount={page ? page.totalPages : 0}
-          range={3}
+          range={2}
           onChange={handlePageChange}
         />
       </div>

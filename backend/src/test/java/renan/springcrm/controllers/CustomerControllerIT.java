@@ -50,7 +50,7 @@ public class CustomerControllerIT {
 	void setUp() throws Exception {
 		existingId = 1L;
 		nonExistingId = 1000L;
-		countTotalCustomers = 12L;
+		countTotalCustomers = 23L;
 		usernameUserAdminAndOperator = "joe_admin_operator@systemcrm.com.br";
 		usernameUserAdmin = "stephanie_admin@systemcrm.com.br";
 		password = "123456";

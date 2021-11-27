@@ -26,7 +26,19 @@ INSERT INTO tb_customer (first_name, last_name, email, birth_date, cpf) VALUES (
 
 INSERT INTO tb_customer (first_name, last_name, email, birth_date, cpf) VALUES ('Lucy', 'James Pereira', 'lucyjames@email.com.br', '1990-03-18', '295.330.650-10');
 INSERT INTO tb_customer (first_name, last_name, email, birth_date, cpf) VALUES ('Elizabeth', 'Silva Green', 'elizabethsg@email.com.br', '1999-01-05', '771.979.500-82');
+INSERT INTO tb_customer (first_name, last_name, email, birth_date, cpf) VALUES ('Taylor', 'Silver Green', 'taylorsivlerg@email.com.br', '1989-12-05', '794.140.150-94');
+INSERT INTO tb_customer (first_name, last_name, email, birth_date, cpf) VALUES ('Marry', 'Rosa Santos', 'mrsantos@email.com.br', '1989-12-10', '417.942.030-95');
+INSERT INTO tb_customer (first_name, last_name, email, birth_date, cpf) VALUES ('Richie', 'Purple', 'richiep@email.com.br', '1990-10-10', '382.732.960-40');
 
+INSERT INTO tb_customer (first_name, last_name, email, birth_date, cpf) VALUES ('André', 'Silva Jardim', 'andresilvaj@email.com.br', '1994-04-10', '676.198.500-58');
+INSERT INTO tb_customer (first_name, last_name, email, birth_date, cpf) VALUES ('Janete', 'Jardim Nascimento', 'jjnasimento@email.com.br', '1994-04-10', '216.437.370-74');
+INSERT INTO tb_customer (first_name, last_name, email, birth_date, cpf) VALUES ('Bryan', 'Onryu', 'bonryu@email.com.br', '1994-04-10', '491.541.650-08');
+INSERT INTO tb_customer (first_name, last_name, email, birth_date, cpf) VALUES ('Bianca', 'Silva Jr Pereira', 'biancasilvajr@email.com.br', '1994-04-10', '065.601.520-90');
+INSERT INTO tb_customer (first_name, last_name, email, birth_date, cpf) VALUES ('Maria', 'Pereira da Silva', 'mariaps@email.com.br', '1994-04-10', '766.191.250-34');
+
+INSERT INTO tb_customer (first_name, last_name, email, birth_date, cpf) VALUES ('Panda', 'Green of Blue', 'pandag0fb@email.com.br', '1994-04-10', '814.934.570-12');
+INSERT INTO tb_customer (first_name, last_name, email, birth_date, cpf) VALUES ('Steve', 'Bryan of Yellow', 'sby_001@email.com.br', '1994-04-10', '331.923.610-50');
+INSERT INTO tb_customer (first_name, last_name, email, birth_date, cpf) VALUES ('Karyn', 'Green of Yellow', 'karyn_0090@email.com.br', '1994-04-10', '905.126.200-08');
 
 
 

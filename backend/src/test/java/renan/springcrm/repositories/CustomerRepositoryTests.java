@@ -26,7 +26,7 @@ public class CustomerRepositoryTests {
 	void setUp() throws Exception {
 		existingId = 1L;
 		nonExistingId = 1259L;
-		countTotalCustomers = 12L;
+		countTotalCustomers = 23L;
 	}
 
 	@Test
@@ -47,7 +47,7 @@ public class CustomerRepositoryTests {
 		Assertions.assertNotNull(customer.getId());
 		Assertions.assertEquals(countTotalCustomers + 1L, customer.getId());
 		Assertions.assertTrue(result.isPresent());
-		Assertions.assertEquals(customer.getId(), 13L);
+		Assertions.assertEquals(customer.getId(), 24L);
 	}
 
 	@Test

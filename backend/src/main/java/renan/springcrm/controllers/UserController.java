@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import renan.springcrm.dtos.UserDTO;
+import renan.springcrm.dtos.UserResetPasswordDTO;
 import renan.springcrm.services.UserService;
 
 @RestController
@@ -58,6 +59,18 @@ public class UserController {
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		userService.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@PostMapping(value = "/recovery")
+	public ResponseEntity<String> recoveryPassword(@RequestBody UserDTO dto) {
+		String response = userService.recoveryPassword(dto.getEmail());
+		return ResponseEntity.ok(response);
+	}
+	
+	@PostMapping(value = "/reset")
+	public ResponseEntity<Void> resetPassword(@RequestBody UserResetPasswordDTO dto) {
+		userService.resetPassword(dto);
 		return ResponseEntity.noContent().build();
 	}
 }

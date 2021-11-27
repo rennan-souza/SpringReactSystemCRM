@@ -92,7 +92,7 @@ const Signin = () => {
           </div>
         </div>
 
-        <div className="mb-4">
+        <div className="mb-2">
           {loading ? (
             <button className="btn btn-primary btn-block shadow-none" type="button" disabled>
               <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -105,7 +105,7 @@ const Signin = () => {
           )}
         </div>
       </form>
-      <Link to="#link">Esqueci minha senha</Link>
+      <Link to="/esqueci-minha-senha">Esqueci minha senha</Link>
     </div>
   )
 }
