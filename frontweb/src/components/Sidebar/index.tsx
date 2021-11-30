@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../AuthContext";
 import { getTokenData, hasAnyRoles, isAuthenticated } from "../../utils/requests";
-import { sidebarExpand } from "../../utils/sidebar";
+import { removeSidebarExpand, sidebarExpand } from "../../utils/sidebar";
 
 
 const Sidebar = () => {
@@ -37,7 +37,7 @@ const Sidebar = () => {
 
             <div className="sidebar-link-container">
 
-              <NavLink to="/dashboard" activeClassName="sidebar-link-active">
+              <NavLink to="/dashboard" activeClassName="sidebar-link-active" onClick={removeSidebarExpand}>
                 <div className="sidebar-nav-icon ">
                   <i className="fas fa-tachometer-alt"></i>
                 </div>
@@ -47,7 +47,7 @@ const Sidebar = () => {
               </NavLink>
 
               {hasAnyRoles(['ROLE_ADMIN']) && (
-                <NavLink to="/usuarios" activeClassName="sidebar-link-active">
+                <NavLink to="/usuarios" activeClassName="sidebar-link-active" onClick={removeSidebarExpand}>
                   <div className="sidebar-nav-icon ">
                     <i className="fas fa-users-cog"></i>
                   </div>
@@ -58,7 +58,7 @@ const Sidebar = () => {
               )}
 
               {hasAnyRoles(['ROLE_OPERATOR']) && (
-                <NavLink to="/clientes" activeClassName="sidebar-link-active">
+                <NavLink to="/clientes" activeClassName="sidebar-link-active" onClick={removeSidebarExpand}>
                   <div className="sidebar-nav-icon ">
                     <i className="fas fa-handshake"></i>
                   </div>
@@ -69,7 +69,7 @@ const Sidebar = () => {
               )}
 
               
-              <NavLink to="/produtos" activeClassName="sidebar-link-active">
+              <NavLink to="/produtos" activeClassName="sidebar-link-active" onClick={removeSidebarExpand}>
                 <div className="sidebar-nav-icon ">
                   <i className="fas fa-th-large"></i>
                 </div>
@@ -79,7 +79,7 @@ const Sidebar = () => {
               </NavLink>
               
 
-              <NavLink to="/perfil" activeClassName="sidebar-link-active">
+              <NavLink to="/perfil" activeClassName="sidebar-link-active" onClick={removeSidebarExpand}>
                 <div className="sidebar-nav-icon ">
                   <i className="fas fa-user-cog"></i>
                 </div>

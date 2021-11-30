@@ -131,7 +131,7 @@ const UserList = () => {
             <div className="table-responsive">
               <table className="table table-borderless table-hover mb-0">
                 <thead>
-                  <tr>
+                  <tr className="border-bottom">
                     <th>ID</th>
                     <th>Nome</th>
                     <th>Sobrenome</th>
@@ -142,7 +142,7 @@ const UserList = () => {
                 </thead>
                 <tbody>
                   {page?.content.map((user) => (
-                    <tr key={user.id}>
+                    <tr className="border-bottom" key={user.id}>
                       <td>{user.id}</td>
                       <td>{user.firstName}</td>
                       <td>{user.lastName}</td>

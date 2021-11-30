@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -37,8 +38,9 @@ public class ProductController {
 	}
 
 	@GetMapping
-	public ResponseEntity<Page<ProductDTO>> findAllPaged(Pageable pageable) {
-		Page<ProductDTO> list = productService.findAllPaged(pageable);
+	public ResponseEntity<Page<ProductDTO>> findAllPaged(Pageable pageable, 
+			@RequestParam(value = "categoryId", defaultValue = "0") Long categoryId) {
+		Page<ProductDTO> list = productService.findAllPaged(pageable, categoryId);
 		return ResponseEntity.ok(list);
 	}
 

@@ -48,6 +48,18 @@ ul {
   box-shadow: none !important;
 }
 
+.product-search-container {
+  width: 235px;
+}
+
+.product-input-search__control {
+  font-size: 14px !important;
+}
+
+.product-input-search__indicator-separator {
+  display: none;
+}
+
 .btn:focus {
   box-shadow: none !important;
 }

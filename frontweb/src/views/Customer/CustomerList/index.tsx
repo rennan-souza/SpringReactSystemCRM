@@ -127,7 +127,7 @@ const CustomerList = () => {
             <div className="table-responsive">
               <table className="table table-borderless table-hover mb-0">
                 <thead>
-                  <tr>
+                  <tr className="border-bottom">
                     <th>ID</th>
                     <th>Nome</th>
                     <th>Sobrenome</th>
@@ -139,7 +139,7 @@ const CustomerList = () => {
                 </thead>
                 <tbody>
                   {page?.content.map((customer) => (
-                    <tr key={customer.id}>
+                    <tr className="border-bottom" key={customer.id}>
                       <td>{customer.id}</td>
                       <td>{customer.firstName}</td>
                       <td>{customer.lastName}</td>
