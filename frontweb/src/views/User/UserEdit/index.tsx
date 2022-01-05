@@ -51,6 +51,8 @@ const UserEdit = () => {
       setValue('lastName', user.lastName)
       setValue('email', user.email)
       setValue('roles', user.roles)
+    }).catch(() => {
+      history.push('/usuarios');
     });
   }, [userId, setValue])
 

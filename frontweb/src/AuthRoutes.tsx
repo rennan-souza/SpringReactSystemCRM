@@ -2,10 +2,12 @@ import { Redirect, Switch } from "react-router";
 import Navbar from "./components/Navbar";
 import PrivateRoute from "./components/PrivateRoute";
 import Sidebar from "./components/Sidebar";
+import Signin from "./views/Auth/Signin";
 import CustomerEdit from "./views/Customer/CustomerEdit";
 import CustomerList from "./views/Customer/CustomerList";
 import CustomerRegister from "./views/Customer/CustomerRegister";
 import Dashboard from "./views/Dashboard";
+import NotFound from "./views/Error/404";
 import ProductEdit from "./views/Product/ProductEdit";
 import ProductList from "./views/Product/ProductList";
 import ProductRegister from "./views/Product/ProductRegister";
@@ -71,6 +73,9 @@ const AuthRoutes = () => {
             <ChangePassword />
           </PrivateRoute>
 
+          <PrivateRoute path="*">
+            <NotFound />
+          </PrivateRoute>
         </Switch>
       </div>
     </>

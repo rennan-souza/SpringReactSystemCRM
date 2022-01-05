@@ -59,6 +59,8 @@ const ProductEdit = () => {
       setValue('price', product.price)
       setValue('category', product.category)
       setImgBase64(product.imgBase64)
+    }).catch(() => {
+      history.push('/produtos');
     });
   }, [setValue, productId])
   

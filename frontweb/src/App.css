@@ -167,10 +167,11 @@ ul {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-right: 10px;
 }
 
 .sidebar-nav-textlink {
-  width: 200px;
+  width: auto;
   height: 50px;
   display: flex;
   align-items: center;

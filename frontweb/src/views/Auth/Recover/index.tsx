@@ -44,7 +44,7 @@ const Recover = () => {
         <h2>System CRM</h2>
       </div>
       <div className="auth-title text-center text-secondary">
-        <h4>Recuperar acesso</h4>
+        <h4 className="mb-2">Recuperar acesso</h4>
         <p>Insira seu email do cadastro, que vamos lhe enviar um código para você criar a nova senha.</p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>

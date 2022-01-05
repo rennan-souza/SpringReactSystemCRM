@@ -39,7 +39,7 @@ const Sidebar = () => {
 
               <NavLink to="/dashboard" activeClassName="sidebar-link-active" onClick={removeSidebarExpand}>
                 <div className="sidebar-nav-icon ">
-                  <i className="fas fa-tachometer-alt"></i>
+                <i className="fas fa-chart-pie"></i>
                 </div>
                 <div className="sidebar-nav-textlink">
                   Dashboard
@@ -60,7 +60,7 @@ const Sidebar = () => {
               {hasAnyRoles(['ROLE_OPERATOR']) && (
                 <NavLink to="/clientes" activeClassName="sidebar-link-active" onClick={removeSidebarExpand}>
                   <div className="sidebar-nav-icon ">
-                    <i className="fas fa-handshake"></i>
+                    <i className="fas fa-check"></i>
                   </div>
                   <div className="sidebar-nav-textlink">
                     Clientes
@@ -81,7 +81,7 @@ const Sidebar = () => {
 
               <NavLink to="/perfil" activeClassName="sidebar-link-active" onClick={removeSidebarExpand}>
                 <div className="sidebar-nav-icon ">
-                  <i className="fas fa-user-cog"></i>
+                  <i className="fas fa-cog"></i>
                 </div>
                 <div className="sidebar-nav-textlink">
                   Meus dados

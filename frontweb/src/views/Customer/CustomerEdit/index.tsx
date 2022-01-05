@@ -36,6 +36,8 @@ const CustomerEdit = () => {
       setValue('cpf', customer.cpf)
       setValue('birthDate', customer.birthDate)
       setValue('email', customer.email)
+    }).catch(() => {
+      history.push('/clientes');
     });
   }, [setValue, customerId]);
 

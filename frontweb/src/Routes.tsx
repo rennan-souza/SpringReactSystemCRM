@@ -3,6 +3,7 @@ import AuthRoutes from "./AuthRoutes";
 import Recover from "./views/Auth/Recover";
 import Reset from "./views/Auth/Reset";
 import Signin from "./views/Auth/Signin";
+import NotFound from "./views/Error/404";
 
 
 const Routes = () => (
