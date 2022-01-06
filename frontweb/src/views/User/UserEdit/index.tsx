@@ -54,7 +54,7 @@ const UserEdit = () => {
     }).catch(() => {
       history.push('/usuarios');
     });
-  }, [userId, setValue])
+  }, [userId, setValue, history])
 
   useEffect(() => {
     getAllRoles();

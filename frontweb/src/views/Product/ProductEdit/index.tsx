@@ -62,7 +62,7 @@ const ProductEdit = () => {
     }).catch(() => {
       history.push('/produtos');
     });
-  }, [setValue, productId])
+  }, [setValue, productId, history])
   
 
   const onSubmit = (product: Product) => {

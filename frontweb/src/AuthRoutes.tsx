@@ -2,7 +2,6 @@ import { Redirect, Switch } from "react-router";
 import Navbar from "./components/Navbar";
 import PrivateRoute from "./components/PrivateRoute";
 import Sidebar from "./components/Sidebar";
-import Signin from "./views/Auth/Signin";
 import CustomerEdit from "./views/Customer/CustomerEdit";
 import CustomerList from "./views/Customer/CustomerList";
 import CustomerRegister from "./views/Customer/CustomerRegister";

@@ -39,7 +39,7 @@ const CustomerEdit = () => {
     }).catch(() => {
       history.push('/clientes');
     });
-  }, [setValue, customerId]);
+  }, [setValue, customerId, history]);
 
 
   useEffect(() => {
